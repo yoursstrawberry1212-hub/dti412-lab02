@@ -1,0 +1,77 @@
+
+{% extends 'catalog/base.html' %}
+
+{% block title %}Courses - DTI CoursePortal{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="mb-4">
+        <h1 class="fw-bold text-primary">Available Courses</h1>
+        <p class="text-muted">
+            Explore all IT courses offered by our department.
+        </p>
+    </div>
+
+    <div class="row">
+
+        {% for course in courses %}
+
+        <div class="col-md-6 col-lg-4 mb-4">
+
+            <div class="card h-100 shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <span class="badge bg-primary mb-3">
+                        {{ course.code }}
+                    </span>
+
+                    <h5 class="card-title fw-bold">
+                        {{ course.title }}
+                    </h5>
+
+                    <p class="card-text text-muted">
+                        {{ course.description }}
+                    </p>
+
+                    <hr>
+
+                    <p class="mb-2">
+                        <strong>Credits:</strong>
+                        {{ course.credits }}
+                    </p>
+
+                    <p class="mb-3">
+                        <strong>Instructor:</strong>
+                        {{ course.instructor }}
+                    </p>
+
+                    <a href="{% url 'catalog:course_detail' course.id %}"
+                       class="btn btn-outline-primary w-100">
+
+                        View Details
+
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+            <div class="alert alert-warning">
+                No courses are currently available.
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
