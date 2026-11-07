@@ -1,0 +1,138 @@
+
+{% extends 'catalog/base.html' %}
+
+{% block title %}Course Inquiry - DTI CoursePortal{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="mb-4">
+        <h1 class="fw-bold text-primary">Course Inquiry Form</h1>
+        <p class="text-muted">
+            Have questions about our courses? Send us your inquiry.
+        </p>
+    </div>
+
+    <!-- Success Message -->
+    {% if submitted_data %}
+
+    <div class="alert alert-success">
+        <h5 class="alert-heading">Inquiry Submitted Successfully!</h5>
+        <p class="mb-0">
+            Thank you, {{ submitted_data.student_name }}.
+            Your inquiry has been received.
+        </p>
+    </div>
+
+    {% endif %}
+
+    <!-- Error Messages -->
+    {% if errors %}
+
+    <div class="alert alert-danger">
+        <strong>Please correct the following errors:</strong>
+
+        <ul class="mb-0 mt-2">
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% endif %}
+
+    <!-- Inquiry Form -->
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body p-4">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <!-- Student Name -->
+                <div class="mb-3">
+                    <label for="student_name"
+                           class="form-label fw-semibold">
+                        Student Name
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           id="student_name"
+                           name="student_name"
+                           placeholder="Enter your full name"
+                           required>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email"
+                           class="form-label fw-semibold">
+                        Email Address
+                    </label>
+
+                    <input type="email"
+                           class="form-control"
+                           id="email"
+                           name="email"
+                           placeholder="example@email.com"
+                           required>
+                </div>
+
+                <!-- Course Selection -->
+                <div class="mb-3">
+                    <label for="course_code"
+                           class="form-label fw-semibold">
+                        Select Course
+                    </label>
+
+                    <select class="form-select"
+                            id="course_code"
+                            name="course_code">
+
+                        <option value="">Choose a course</option>
+
+                        {% for course in courses %}
+                        <option value="{{ course.code }}">
+                            {{ course.code }} - {{ course.title }}
+                        </option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+
+                <!-- Message -->
+                <div class="mb-3">
+                    <label for="message"
+                           class="form-label fw-semibold">
+                        Inquiry Message
+                    </label>
+
+                    <textarea class="form-control"
+                              id="message"
+                              name="message"
+                              rows="5"
+                              placeholder="Write your questions here..."
+                              required></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary px-4">
+                    Submit Inquiry
+                </button>
+
+                <a href="{% url 'catalog:home' %}"
+                   class="btn btn-outline-secondary ms-2">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

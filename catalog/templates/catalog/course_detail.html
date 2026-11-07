@@ -1,0 +1,91 @@
+
+{% extends 'catalog/base.html' %}
+
+{% block title %}{{ course.code }} - Course Details{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="mb-4">
+        <a href="{% url 'catalog:course_list' %}"
+           class="btn btn-outline-secondary">
+            &larr; Back to Courses
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-primary text-white p-4">
+
+            <span class="badge bg-light text-primary mb-2">
+                {{ course.code }}
+            </span>
+
+            <h2 class="fw-bold mb-0">
+                {{ course.title }}
+            </h2>
+
+        </div>
+
+        <div class="card-body p-4">
+
+            <h4 class="fw-bold mb-3">
+                Course Information
+            </h4>
+
+            <div class="row mb-3">
+
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 bg-light rounded">
+                        <strong>Course Code</strong>
+                        <p class="mb-0">{{ course.code }}</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 bg-light rounded">
+                        <strong>Credits</strong>
+                        <p class="mb-0">{{ course.credits }}</p>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <div class="p-3 bg-light rounded">
+                        <strong>Instructor</strong>
+                        <p class="mb-0">{{ course.instructor }}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <h4 class="fw-bold mb-3">
+                Course Description
+            </h4>
+
+            <p class="text-muted">
+                {{ course.description }}
+            </p>
+
+            <hr>
+
+            <div class="mt-4">
+                <a href="{% url 'catalog:inquiry' %}"
+                   class="btn btn-primary">
+                    Submit an Inquiry
+                </a>
+
+                <a href="{% url 'catalog:course_list' %}"
+                   class="btn btn-outline-secondary ms-2">
+                    View All Courses
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
